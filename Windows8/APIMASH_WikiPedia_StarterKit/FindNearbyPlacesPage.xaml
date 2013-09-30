@@ -41,15 +41,17 @@
 
         <Grid Grid.Row="1" Margin="40,0,40,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="400"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Button Content="Invoke" x:Name="Button_Invoke" FontSize="40" Click="Button_Invoke_Click"/>
+                <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Center">
+                    <TextBlock Text="Postal Code" FontSize="20"/>
+                    <TextBox Text="33702" x:Name="TextBox_SearchFor" FontSize="40" Height="60" Width="300" Margin="10" TextChanged="TextBox_SearchFor_TextChanged"/>
+                    <TextBlock Text="Country Code" FontSize="20"/>
+                    <TextBox Text="US" x:Name="TextBox_CountryCode_SearchFor" FontSize="40" Height="60" Width="300" Margin="10" TextChanged="CountryCode_SearchFor_TextChanged"/>
+                    <Button Content="Invoke" x:Name="Button_Invoke" FontSize="40" Click="Button_Invoke_Click" Margin="10"/>
+                </StackPanel>
             </Grid>
             <toolkit:DockPanel Grid.Column="1">
                 <ScrollViewer>

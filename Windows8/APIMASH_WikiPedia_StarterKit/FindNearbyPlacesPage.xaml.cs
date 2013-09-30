@@ -77,6 +77,7 @@ namespace APIMASH_WikiPedia_StarterKit
             //string apicall = @"http://api.geonames.org/findNearbyWikipediaJSON?postalcode=33702&country=US&radius=10&username=demo";
             //m_msghelper.msg("invoking against " + apicall);
             //api_findNearbyPlaces.Invoke<APIMASH_WikiPediaLib.APIMASH_OM>(apicall);
+            m_msghelper.clr();
 
             string _username = APIMASHGlobals.Instance.UserID;
             if (_username.Length <= 0)
@@ -85,8 +86,18 @@ namespace APIMASH_WikiPedia_StarterKit
                 return;
             }
 
-            FindNearbyWikipediaHelper _apihelper = new FindNearbyWikipediaHelper( 33702, "US", 10, _username );
+            int _zip = 0;
+            try
+            {
+                _zip = System.Convert.ToInt32(TextBox_SearchFor.Text);
+            }
+            catch
+            {
+                MessageDialogHelper.ShowMsg( "oops", "postalcode must be all numeric" );
+                return;
+            }
 
+            FindNearbyWikipediaHelper _apihelper = new FindNearbyWikipediaHelper( _zip, "US", 10, _username);
             string _apicall = _apihelper.TargetURL;
 
             System.Diagnostics.Debug.WriteLine("TargetURL=" + _apicall);
@@ -122,6 +133,21 @@ namespace APIMASH_WikiPedia_StarterKit
             {
                 APIMASH_WikiPedia_StarterKit.Common.MessageDialogHelper.ShowMsg("oops", e.Message);
             }
+        }
+
+        private void TextBox_SearchFor_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidateUI();
+        }
+
+        private void CountryCode_SearchFor_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidateUI();
+        }
+
+        private void ValidateUI()
+        {
+            Button_Invoke.IsEnabled = (TextBox_SearchFor.Text.Length > 0) && ( TextBox_CountryCode_SearchFor.Text.Length > 0 );
         }
     }
 }
