@@ -69,16 +69,11 @@ namespace APIMASH_WikiPedia_StarterKit
             Invoke();
         }
         
-        private void Invoke_Archived()
-        {
-            string apicall = @"http://api.geonames.org/wikipediaSearchJSON?q=Tampa&maxRows=50&username=devfish";
-            System.Diagnostics.Debug.WriteLine("OMG!  GET RID OF THIS HARD CODING OF THE URL!");
-            m_msghelper.msg("invoking against " + apicall);
-            m_api_wikipediaSearch.Invoke<APIMASH_WikiPediaLib.APIMASH_OM>(apicall);
-        }
-
         private void Invoke()
         {
+            m_msghelper.clr();
+            m_msghelper.msg( System.DateTime.Now.ToString() + " : initiated" );
+
             string _username = APIMASHGlobals.Instance.UserID;
             if (_username.Length <= 0)
             {
@@ -88,7 +83,7 @@ namespace APIMASH_WikiPedia_StarterKit
 
             WikipediaSearchHelper _apihelper = new WikipediaSearchHelper( _username, "Orlando", 50 );
 
-            string _apicall = _apihelper.TargetURL;
+            string _apicall = _apihelper.FullTextSearchUrl( TextBlock_SearchFor.Text );
 
             System.Diagnostics.Debug.WriteLine("TargetURL=" + _apicall);
 
@@ -123,6 +118,11 @@ namespace APIMASH_WikiPedia_StarterKit
             {
                 APIMASH_WikiPedia_StarterKit.Common.MessageDialogHelper.ShowMsg("oops", e.Message);
             }
+        }
+
+        private void TextBlock_SearchFor_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Button_Invoke.IsEnabled = TextBlock_SearchFor.Text.Length > 0;
         }
     }
 }

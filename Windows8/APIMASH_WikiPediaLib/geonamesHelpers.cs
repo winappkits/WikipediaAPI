@@ -100,6 +100,7 @@ namespace APIMASH_WikiPediaLib.geonamesHelpers
          {
              get { return this.m_workingDemoURL; }
          }
+
          public override string PrePopulatedURL
          {
              get
@@ -113,15 +114,24 @@ namespace APIMASH_WikiPediaLib.geonamesHelpers
                 return TargetURL;
              }
          }
+
+         public  string FullTextSearchUrl( string placeName )
+         {
+             if (placeName.Length <= 0) throw new ArgumentException("[WikipediaSearchHelper] placename cannot be blank", "placeName");
+             if (this.UserName.Length <= 0)  throw new ArgumentException("username cannot be blank", "p_userName");
+
+             return string.Format(m_baseurl, placeName, MaxRows, UserName);
+
+         }
+
          public override string TargetURL
          {
-             get
-             {
+            get {
                  if (this.UserName.Length <= 0)
                      throw new ArgumentException("username cannot be blank", "p_userName");
 
                  return string.Format(m_baseurl, Query, MaxRows, UserName);
-             }
+                 }
          }
      }
 

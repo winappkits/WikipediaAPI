@@ -57,6 +57,7 @@ namespace APIMASH_WikiPediaLib
             {
                 _sb.Append(title);
             }
+            _sb.Append(" ");
             _sb.Append(distance.ToString());
             _sb.Append("m :: geo(");
             _sb.Append(lat);
@@ -113,7 +114,7 @@ namespace APIMASH_WikiPediaLib
                 if (_sb.Length > 0) _sb.Append(" :: thumb:");
                 _sb.Append(this.thumbnailImg);
             }
-
+            _sb.Append(" ");
             _sb.Append("m :: geo(");
             _sb.Append(lat);
             _sb.Append(",");

@@ -16,11 +16,6 @@
         <x:String x:Key="AppName">My Application</x:String>
     </Page.Resources>
 
-    <!--
-        This grid acts as a root panel for the page that defines two rows:
-        * Row 0 contains the back button and page title
-        * Row 1 contains the rest of the page layout
-    -->
     <Grid Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
@@ -40,15 +35,14 @@
 
         <Grid Grid.Row="1" Margin="40,0,40,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="400"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Button Content="Invoke" x:Name="Button_Invoke" FontSize="40" Click="Button_Invoke_Click"/>
+                <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Center">
+                    <TextBox Text="Tampa" x:Name="TextBlock_SearchFor" FontSize="40" Height="60" Width="300" Margin="10" TextChanged="TextBlock_SearchFor_TextChanged"/>
+                    <Button Content="Invoke" x:Name="Button_Invoke" FontSize="40" Click="Button_Invoke_Click" Margin="10"/>
+                </StackPanel>
             </Grid>
             <toolkit:DockPanel Grid.Column="1">
                 <ScrollViewer>
