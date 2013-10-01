@@ -35,9 +35,14 @@ Step 1. Modify the calls to geonames helpers to 'mash in' with any input params 
 Step 2. Geonames Wikipedia information is EXTREMELY  mashable! Experiment by combining Geonames Wikipedia with Bing Maps showing nearby points of interest (check out the Bing Map Starter Kit at http://bit.ly/apimash to see how to use Bing Maps)
 
 ##Change Log
-###v1.0.0 Initial release with simple text output for apis, no parameter screens yet
-###v1.0.0.1 License changed to bobfam %20 special version
+###v1.5.0.0 Added text input to BoundingBoxSearch
+###v1.4.0.0 Added text input to FindNearbyPlaces
+###v1.3.0.0 Added text input to TextSearch, moved to NUGET for JSON
 ###v1.0.0.2 Moved APIMASHLib local to main wikipedia project.  Bad practice but when in rome...
+###v1.0.0.1 License changed to bobfam %20 special version
+###v1.0.0 Initial release with simple text output for apis, no parameter screens yet
+
+
 
 ##DISCLAIMER: 
 The sample code described herein is provided on an "as is" basis, without warranty of any kind, to the fullest extent permitted by law. Both Microsoft and I do not warrant or guarantee the individual success developers may have in implementing the sample code on their development platforms or in using their own Web server configurations. 

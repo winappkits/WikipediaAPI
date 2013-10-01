@@ -74,13 +74,11 @@ namespace APIMASH_WikiPedia_StarterKit
         #endregion 
     
 
-        private void Button_Invoke_Click(object sender, RoutedEventArgs e)
-        {
-            Invoke();
-        }
-
         private void Invoke()
         {
+            m_msghelper.clr();
+            m_msghelper.msg( System.DateTime.Now.ToString() + " : " + "Invoke()" );
+
             //string apicall = @"http://api.geonames.org/wikipediaBoundingBoxJSON?north=44.1&south=-9.9&east=-22.4&west=55.2&username=devfish";
             string _username = APIMASHGlobals.Instance.UserID;
             if ( _username.Length<=0) 
@@ -89,7 +87,25 @@ namespace APIMASH_WikiPedia_StarterKit
                 return;
             }
 
-            WikipediaBoundingBoxHelper _apihelper = new WikipediaBoundingBoxHelper(_username, 44.2, -10, -22.5, 55.3);
+            double _latUL = 0.0;
+            double _lonUL = 0.0;
+            double _lonLR = 0.0;
+            double _latLR = 0.0;
+
+            try
+            {
+                _latUL = System.Convert.ToDouble( TextBox_LatUL.Text );
+                _lonUL = System.Convert.ToDouble( TextBox_LonUL.Text);
+                _latLR = System.Convert.ToDouble(TextBox_LatLR.Text);
+                _lonLR = System.Convert.ToDouble(TextBox_LonLR.Text);
+            }
+            catch
+            {
+                m_msghelper.msg( "one of the latlon pairs is in invalid format" );
+                return;
+            }
+
+            WikipediaBoundingBoxHelper _apihelper = new WikipediaBoundingBoxHelper(_username, _latUL,_latLR,_lonUL, _lonLR );
             
             string _apicall = _apihelper.TargetURL;
 
@@ -126,6 +142,70 @@ namespace APIMASH_WikiPedia_StarterKit
             {
                 MessageDialogHelper.ShowMsg("oops", e.Message);
             }
+        }
+
+
+        private void Button_StubLocation_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (sender is Button)
+            {
+                Button _btn = (Button)sender;
+                string _city = _btn.Content.ToString().ToLower();
+                m_msghelper.msg( _city );
+
+                string _latUL = "0";
+                string _lonUL = "0";
+                string _latLR = "0";
+                string _lonLR = "0";
+                if ( _city== "dublin" )
+                {
+                    // 53.33, -6.25
+                    _latUL = "54";
+                    _lonUL = "-7";
+                    _latLR = "53";
+                    _lonLR = "-6"; 
+                }
+                else if ( _city == "tampa" )
+                {
+                    // 27.97N, -82.48W
+                    _latUL = "28.5";
+                    _lonUL = "-83";
+                    _latLR = "27.5";
+                    _lonLR = "-82"; 
+                }
+                else if ( _city == "kilgarvan" )
+                {
+                    // 51.9, -9.43
+                    _latUL = "52.5";
+                    _lonUL = "-10";
+                    _latLR = "51.5";
+                    _lonLR = "-9";
+                }
+                else if ( _city == "vilnius" )
+                {
+                    // 54.7, 25.27E
+                    _latUL = "55.2";
+                    _lonUL = "25";
+                    _latLR = "54.2";
+                    _lonLR = "26";
+                }
+
+                TextBox_LatUL.Text = _latUL.ToString();
+                TextBox_LonUL.Text = _lonUL.ToString();
+                TextBox_LatLR.Text = _latLR.ToString();
+                TextBox_LonLR.Text = _lonLR.ToString();
+            }
+            else
+            {
+                m_msghelper.msg("sender is not a button");
+            }
+
+            
+        }
+
+        private void Button_Invoke_Click(object sender, RoutedEventArgs e)
+        {
+            Invoke();
         }
     }
 }
